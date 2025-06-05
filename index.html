@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Currency Converter</h2>
+    <label>Convert from:</label>
+    <select id="from">
+        <option value="USD">USD</option>
+        <option value="JPY">JPY</option>
+        <option value="EUR">EUR</option>
+        <option value="RUB">RUB</option>
+        <option value="GBP">GBP</option>
+    </select>
+
+    <label>Convert to:</label>
+    <select id="to">
+        <option value="USD">USD</option>
+        <option value="JPY">JPY</option>
+        <option value="EUR">EUR</option>
+        <option value="RUB">RUB</option>
+        <option value="GBP">GBP</option>
+    </select>
+
+    <label>Amount:</label>
+    <input type="number" id="amount" placeholder="Enter amount" min="1">
+
+    <button onclick="convert()">Convert</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    const currencies = {
+        USD: 1.0,
+        JPY: 113.5,
+        EUR: 0.89,
+        RUB: 74.36,
+        GBP: 0.75
+    };
+
+    function convert() {
+        const from = document.getElementById("from").value;
+        const to = document.getElementById("to").value;
+        const amount = parseFloat(document.getElementById("amount").value);
+
+        if (isNaN(amount) || amount < 1) {
+            alert("Please enter a valid amount (1 or more)");
+            return;
+        }
+
+        const converted = (amount * currencies[to]) / currencies[from];
+        const resultBox = document.getElementById("result");
+        resultBox.innerHTML = `
+            <table>
+                <tr><th>From</th><th>To</th><th>Amount</th><th>Converted</th></tr>
+                <tr>
+                    <td>${from}</td>
+                    <td>${to}</td>
+                    <td>${amount}</td>
+                    <td>${converted.toFixed(2)}</td>
+                </tr>
+            </table>
+        `;
+    }
+</script>
+</body>
+</html>
+
